@@ -13,7 +13,7 @@ public class testRegister {
 
     @BeforeAll
     public static void createReport() {
-        System.out.println("<<< COMIENZAN LOS TEST DE REGISTRO >>>");
+        System.out.println("<<< INICIO TEST DE REGISTRO >>>");
     }
 
     @BeforeEach
@@ -21,8 +21,8 @@ public class testRegister {
         driver = new ChromeDriver();
         wait = new WebDriverWait(driver, Duration.ofMillis(5000));
         RegisterPage registerPage = new RegisterPage(driver, wait);
-        registerPage.setup();
         registerPage.getUrl("https://opencart.abstracta.us/index.php?route=common/home");
+        registerPage.setup();
     }
 
     @Test
@@ -30,16 +30,19 @@ public class testRegister {
     @Tag("EXITOSO")
     public void RegistroExitoso() throws InterruptedException {
         RegisterPage registerPage = new RegisterPage(driver, wait);
-        registerPage.clickCrearCuenta();
+        registerPage.clickMyAccount();
+        registerPage.clickRegister();
+        registerPage.ingresarName("");
+        registerPage.ingresarApellido("");
+        registerPage.ingresarMail("");
+        registerPage.ingresarTelephone("");
+        registerPage.ingresarContrasenia("");
+        registerPage.confirmarConytrasenia("");
+        registerPage.clickNoNewsletter();
+        registerPage.clickAgree();
+        registerPage.clickSubmit();
+        registerPage.cuentaCreada().equals("Congratulations! Your new account has been successfully created!");
 
-        registerPage.escribirNombre("Sergio");
-        registerPage.escribirApellido("Pace");
-        registerPage.escribirCorreo("prueba0024579@gmail.com");
-        registerPage.escribirContraseña("123456");
-        registerPage.repetirContraseña("123456");
-        registerPage.clickRegistrarse();
-        registerPage.cuentaCreadaGracias().equals("¡Cuenta registrada con éxito!");
-        registerPage.cuentaCreadaExito().equals("Te enviamos un email para confirmar tu cuenta");
     }
 
     @Test
