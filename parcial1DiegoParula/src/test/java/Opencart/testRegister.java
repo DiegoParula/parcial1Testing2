@@ -22,7 +22,7 @@ public class testRegister {
         wait = new WebDriverWait(driver, Duration.ofMillis(5000));
         RegisterPage registerPage = new RegisterPage(driver, wait);
         registerPage.setup();
-        registerPage.getUrl("https://digital-booking-front.digitalhouse.com");
+        registerPage.getUrl("https://opencart.abstracta.us/index.php?route=common/home");
     }
 
     @Test

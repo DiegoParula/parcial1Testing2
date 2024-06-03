@@ -3,6 +3,7 @@ package Opencart;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
@@ -23,6 +24,9 @@ public class BasePage {
     /** Método para configurar opciones del navegador
      */
     protected void setup() {
+        // Configura las opciones de Chrome
+        ChromeOptions options = new ChromeOptions();
+        options.setAcceptInsecureCerts(true); // Ignorar errores SSL
         driver.manage().window().maximize();
     }
 
