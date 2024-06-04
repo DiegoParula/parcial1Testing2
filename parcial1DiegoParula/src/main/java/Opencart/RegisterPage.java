@@ -17,7 +17,16 @@ public class RegisterPage extends BasePage{
     private By btnAgree = By.xpath("//*[@id=\"content\"]/form/div/div/input[1]");
     private By btnSubmit = By.xpath("//*[@id=\"content\"]/form/div/div/input[2]");
     private By account = By.xpath("//*[@id=\"content\"]/p[1]");
+    private By errorDiv = By.xpath("//*[@id=\"account-register\"]/div[1]");
+    private By errorDivPass = By.xpath("//*[@id=\"content\"]/form/fieldset[2]/div[2]/div/div");
 
+    private By errorDivLasName = By.xpath("//*[@id=\"account\"]/div[3]/div/div");
+
+    private By errorDivName = By.xpath("//*[@id=\"account\"]/div[2]/div/div");
+
+    private By errorDivMail = By.xpath("//*[@id=\"account\"]/div[4]/div/div");
+
+    private By errorDivTelephone = By.xpath("//*[@id=\"account\"]/div[5]/div/div");
 
     private By exito = By.className("txt-exito");
     private By mailRegister = By.className("form-feedback");
@@ -127,7 +136,7 @@ public class RegisterPage extends BasePage{
      * @throws InterruptedException si el hilo es interrumpido mientras espera
      */
     public String mailRegistrado() throws InterruptedException {
-        String res = this.getText(mailRegister);
+        String res = this.getText(errorDiv);
         System.out.println("Resultado Card value: " + res);
         return res;
     }
@@ -136,9 +145,33 @@ public class RegisterPage extends BasePage{
      * @return el texto del mensaje de contraseñas no coincidentes
      * @throws InterruptedException si el hilo es interrumpido mientras espera
      */
-    public String contraseñaNoCoinciden() throws InterruptedException {
-        String res = this.getText(passwordDis);
+    public String contraseiaNoCoinciden() throws InterruptedException {
+        String res = this.getText(errorDivPass);
         System.out.println("Resultado Card value: " + res);
+        return res;
+    }
+
+    public String lastNameVacio() throws InterruptedException {
+        String res = this.getText(errorDivLasName);
+        System.out.println(res);
+        return res;
+    }
+
+    public String nameVacio() throws InterruptedException {
+        String res = this.getText(errorDivName);
+        System.out.println(res);
+        return res;
+    }
+
+    public String mailVacio() throws InterruptedException {
+        String res = this.getText(errorDivMail);
+        System.out.println(res);
+        return res;
+    }
+
+    public String telephoneVacio() throws InterruptedException {
+        String res= this.getText(errorDivTelephone);
+        System.out.println(res);
         return res;
     }
 }

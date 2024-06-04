@@ -51,15 +51,19 @@ public class testRegister {
     public void RegistroFallidoMailRepetido() throws InterruptedException {
         RegisterPage registerPage = new RegisterPage(driver, wait);
 
-        registerPage.clickCrearCuenta();
-        registerPage.escribirNombre("Sergio");
-        registerPage.escribirApellido("Pace");
-        registerPage.escribirCorreo("prueba00004@gmail.com");
-        registerPage.escribirContraseña("123456");
-        registerPage.repetirContraseña("123456");
-        registerPage.clickRegistrarse();
+        registerPage.clickMyAccount();
+        registerPage.clickRegister();
+        registerPage.ingresarName("");
+        registerPage.ingresarApellido("");
+        registerPage.ingresarMail("");
+        registerPage.ingresarTelephone("");
+        registerPage.ingresarContrasenia("");
+        registerPage.confirmarConytrasenia("");
+        registerPage.clickNoNewsletter();
+        registerPage.clickAgree();
+        registerPage.clickSubmit();
 
-        registerPage.mailRegistrado().equals("Ese email ya se encuentra registrado");
+        registerPage.mailRegistrado().equals("Warning: E-Mail Address is already registered!");
     }
 
     @Test
@@ -67,18 +71,101 @@ public class testRegister {
     @Tag("FALLIDO")
     public void RegistroFallidoContraseña() throws InterruptedException {
         RegisterPage registerPage = new RegisterPage(driver, wait);
-        registerPage.clickCrearCuenta();
+        registerPage.clickMyAccount();
+        registerPage.clickRegister();
+        registerPage.ingresarName("");
+        registerPage.ingresarApellido("");
+        registerPage.ingresarMail("");
+        registerPage.ingresarTelephone("");
+        registerPage.ingresarContrasenia("");
+        registerPage.confirmarConytrasenia("");
+        registerPage.clickNoNewsletter();
+        registerPage.clickAgree();
+        registerPage.clickSubmit();
 
-        registerPage.escribirNombre("Sergio");
-        registerPage.escribirApellido("Pace");
-        registerPage.escribirCorreo("prueba00004@gmail.com");
-        registerPage.escribirContraseña("123456321");
-        registerPage.repetirContraseña("123456123");
-
-        registerPage.clickRegistrarse();
-
-        registerPage.contraseñaNoCoinciden().equals("Las contraseñas deben ser iguales");
+        registerPage.contraseiaNoCoinciden().equals("Password confirmation does not match password!");
     }
+
+    @Test
+    @Tag("REGISTRO")
+    @Tag("FALLIDO")
+    public void RegistroSinLastName() throws InterruptedException {
+        RegisterPage registerPage = new RegisterPage(driver, wait);
+        registerPage.clickMyAccount();
+        registerPage.clickRegister();
+        registerPage.ingresarName("");
+        registerPage.ingresarApellido("");
+        registerPage.ingresarMail("");
+        registerPage.ingresarTelephone("");
+        registerPage.ingresarContrasenia("");
+        registerPage.confirmarConytrasenia("");
+        registerPage.clickNoNewsletter();
+        registerPage.clickAgree();
+        registerPage.clickSubmit();
+
+        registerPage.lastNameVacio().equals("Last Name must be between 1 and 32 characters!");
+    }
+
+    @Test
+    @Tag("REGISTRO")
+    @Tag("FALLIDO")
+    public void RegistroSinName() throws InterruptedException {
+        RegisterPage registerPage = new RegisterPage(driver, wait);
+        registerPage.clickMyAccount();
+        registerPage.clickRegister();
+        registerPage.ingresarName("");
+        registerPage.ingresarApellido("");
+        registerPage.ingresarMail("");
+        registerPage.ingresarTelephone("");
+        registerPage.ingresarContrasenia("");
+        registerPage.confirmarConytrasenia("");
+        registerPage.clickNoNewsletter();
+        registerPage.clickAgree();
+        registerPage.clickSubmit();
+
+        registerPage.nameVacio().equals("First Name must be between 1 and 32 characters!");
+    }
+
+    @Test
+    @Tag("REGISTRO")
+    @Tag("FALLIDO")
+    public void RegistroSinMail() throws InterruptedException {
+        RegisterPage registerPage = new RegisterPage(driver, wait);
+        registerPage.clickMyAccount();
+        registerPage.clickRegister();
+        registerPage.ingresarName("");
+        registerPage.ingresarApellido("");
+        registerPage.ingresarMail("");
+        registerPage.ingresarTelephone("");
+        registerPage.ingresarContrasenia("");
+        registerPage.confirmarConytrasenia("");
+        registerPage.clickNoNewsletter();
+        registerPage.clickAgree();
+        registerPage.clickSubmit();
+
+        registerPage.mailVacio().equals("E-Mail Address does not appear to be valid!");
+    }
+
+    @Test
+    @Tag("REGISTRO")
+    @Tag("FALLIDO")
+    public void RegistroSinTelephone() throws InterruptedException {
+        RegisterPage registerPage = new RegisterPage(driver, wait);
+        registerPage.clickMyAccount();
+        registerPage.clickRegister();
+        registerPage.ingresarName("");
+        registerPage.ingresarApellido("");
+        registerPage.ingresarMail("");
+        registerPage.ingresarTelephone("");
+        registerPage.ingresarContrasenia("");
+        registerPage.confirmarConytrasenia("");
+        registerPage.clickNoNewsletter();
+        registerPage.clickAgree();
+        registerPage.clickSubmit();
+
+        registerPage.telephoneVacio().equals("Telephone must be between 3 and 32 characters!");
+    }
+
 
     @AfterEach
     public void cerrar() {

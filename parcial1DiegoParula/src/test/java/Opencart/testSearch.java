@@ -1,9 +1,10 @@
 package Opencart;
 
-import org.junit.jupiter.api.Tag;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
@@ -14,23 +15,50 @@ public class testSearch {
     private WebDriver driver;
     private WebDriverWait wait;
 
-    @Test
-    @Tag("BUSQUEDA")
-    @Tag("EXITOSO")
-    public void test_BusquedaExitosa() throws InterruptedException {
+    @BeforeAll
+    public static void createReport() {
+        System.out.println("<<< INICIO TEST DE BÚSQUEDA >>>");
+    }
+
+    @BeforeEach
+    public void setUp() throws InterruptedException {
         driver = new ChromeDriver();
         wait = new WebDriverWait(driver, Duration.ofMillis(5000));
         SearchPage searchPage = new SearchPage(driver, wait);
+        searchPage.getUrl("https://opencart.abstracta.us/index.php?route=common/home");
         searchPage.setup();
-        searchPage.getUrl("https://digital-booking-front.digitalhouse.com/");
+    }
 
-        searchPage.completarBusqueda("punta del este");
+    @Test
+    @Tag("BUSQUEDA")
+    @Tag("EXITOSO")
+    public void test_BusquedaYAniadirExitosa() throws InterruptedException {
+        SearchPage searchPage = new SearchPage(driver, wait);
 
+        searchPage.completarBusqueda("iphone");
         searchPage.clickBuscar();
 
+        WebElement addToCartButton = wait.until(ExpectedConditions.elementToBeClickable(searchPage.getAddToCart()));
+        addToCartButton.click();
+
+        WebElement addSuccesMs = wait.until(ExpectedConditions.presenceOfElementLocated(searchPage.getAddSucces()));
+        addSuccesMs.equals("Success: You have added iPhone to your shopping cart!");
+
+        /*
         String resultado = searchPage.resultadoBusqueda();
         assertTrue(resultado.equals("CASA DE PLAYA\nVilla Kantounes Studio Ostria"));
+        */
 
+    }
+
+    @AfterEach
+    public void cerrar() {
+        SearchPage searchPage = new SearchPage(driver, wait);
         searchPage.close();
+    }
+
+    @AfterAll
+    public static void saveReport() {
+        System.out.println("<<< FINALIZAN LOS TEST DE BÚSQUEDA >>>");
     }
 }
