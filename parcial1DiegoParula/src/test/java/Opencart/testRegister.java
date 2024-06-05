@@ -9,6 +9,7 @@ import java.time.Duration;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class testRegister {
     private WebDriver driver;
     private WebDriverWait wait;
@@ -28,9 +29,11 @@ public class testRegister {
     }
 
     @Test
+    @Order(1)
     @Tag("REGISTRO")
     @Tag("EXITOSO")
     public void RegistroExitoso() throws InterruptedException {
+
         RegisterPage registerPage = new RegisterPage(driver, wait);
         registerPage.clickMyAccount();
         registerPage.clickRegister();
@@ -50,6 +53,7 @@ public class testRegister {
     }
 
     @Test
+    @Order(2)
     @Tag("REGISTRO")
     @Tag("FALLIDO")
     public void RegistroFallidoMailRepetido() throws InterruptedException {
@@ -73,6 +77,7 @@ public class testRegister {
     }
 
     @Test
+    @Order(3)
     @Tag("REGISTRO")
     @Tag("FALLIDO")
     public void RegistroFallidoContraseña() throws InterruptedException {
@@ -95,6 +100,7 @@ public class testRegister {
     }
 
     @Test
+    @Order(5)
     @Tag("REGISTRO")
     @Tag("FALLIDO")
     public void RegistroSinLastName() throws InterruptedException {
@@ -117,6 +123,7 @@ public class testRegister {
     }
 
     @Test
+    @Order(4)
     @Tag("REGISTRO")
     @Tag("FALLIDO")
     public void RegistroSinName() throws InterruptedException {
@@ -139,6 +146,7 @@ public class testRegister {
     }
 
     @Test
+    @Order(6)
     @Tag("REGISTRO")
     @Tag("FALLIDO")
     public void RegistroSinMail() throws InterruptedException {
@@ -161,6 +169,7 @@ public class testRegister {
     }
 
     @Test
+    @Order(7)
     @Tag("REGISTRO")
     @Tag("FALLIDO")
     public void RegistroSinTelephone() throws InterruptedException {

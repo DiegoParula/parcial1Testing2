@@ -1,22 +1,32 @@
 package Opencart;
 
+import com.aventstack.extentreports.ExtentReports;
+import com.aventstack.extentreports.ExtentTest;
+import com.aventstack.extentreports.Status;
+import com.aventstack.extentreports.reporter.ExtentSparkReporter;
 import org.junit.jupiter.api.*;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import reportes.ReportFactory;
 
 import java.time.Duration;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static reportes.ReportFactory.captureScreenshot;
 
 public class testSearch {
     private WebDriver driver;
     private WebDriverWait wait;
+    static ExtentSparkReporter info = new ExtentSparkReporter("reportes/Login-Test.html");
+    static ExtentReports extent;
 
     @BeforeAll
     public static void createReport() {
+        extent = ReportFactory.getInstance();
+        extent.attachReporter(info);
         System.out.println("<<< INICIO TEST DE BÚSQUEDA >>>");
     }
 
@@ -33,12 +43,16 @@ public class testSearch {
     @Tag("BUSQUEDA")
     @Tag("EXITOSO")
     public void test_BusquedaYAniadirExitosa() throws InterruptedException {
+        ExtentTest test = extent.createTest("Busqueda y añadir a favoritos");
+        test.log(Status.INFO, "Comienza el Test");
+
         SearchPage searchPage = new SearchPage(driver, wait);
 
         searchPage.completarBusqueda("iphone");
+        test.log(Status.PASS, "Ingreso el producto iphone a buscar");
         searchPage.clickBuscar();
 
-        WebElement addToCartButton = wait.until(ExpectedConditions.elementToBeClickable(searchPage.getAddToCart()));
+        /*WebElement addToCartButton = wait.until(ExpectedConditions.elementToBeClickable(searchPage.getAddToCart()));
         addToCartButton.click();
 
         WebElement addSuccesMs = wait.until(ExpectedConditions.presenceOfElementLocated(searchPage.getAddSucces()));
@@ -47,13 +61,30 @@ public class testSearch {
         String mss = addSuccesMs.getText();
         //assertTrue(mss.contains("Success: You have added iPhone to your shopping cart!"));
         assertEquals("Success: You have added iPhone to your shopping cart!\n×", mss);
+        */
+        searchPage.clickAddToCart();
+        String mss = searchPage.agregadoCarritoExitoso();
 
+        try {
+            assertEquals("asasasasSuccess: You have added iPhone to your shopping cart!\n×", mss);
+            test.log(Status.PASS, "Validación de producto agregado a carrito");
+        } catch (AssertionError e) {
+            // Registra el motivo del fallo
+            test.log(Status.FAIL, "Fallo en la validación del producto agregado al carrito: " + e.getMessage());
+            captureScreenshot(test, "FAIL_Registro", driver);
+            throw e;
 
+        }
+        test.log(Status.INFO, "Finaliza el Test");
+        /*
+        assertEquals("Success:ssss You have added iPhone to your shopping cart!\n×", mss);
+        test.log(Status.PASS, "Validación de producto agregado a carrito");
 
-
-
+        test.log(Status.INFO, "Finaliza el Test");
+        */
 
     }
+
 
     @AfterEach
     public void cerrar() {
@@ -63,6 +94,7 @@ public class testSearch {
 
     @AfterAll
     public static void saveReport() {
+        extent.flush();
         System.out.println("<<< FINALIZAN LOS TEST DE BÚSQUEDA >>>");
     }
 }

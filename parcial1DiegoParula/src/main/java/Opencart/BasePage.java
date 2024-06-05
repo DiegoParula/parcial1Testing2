@@ -24,14 +24,15 @@ public class BasePage {
     /** Método para configurar opciones del navegador
      */
     protected void setup() {
-        // Configura las opciones de Chrome
+        /*// Configura las opciones de Chrome
         ChromeOptions options = new ChromeOptions();
-        /*options.setAcceptInsecureCerts(true); // Ignorar errores SSL
+        options.setAcceptInsecureCerts(true); // Ignorar errores SSL
         options.addArguments("--ignore-certificate-errors"); // Ignora errores de certificado
         options.addArguments("--ignore-ssl-errors"); // Ignora errores SSL
         options.addArguments("--disable-web-security"); // Desactiva la seguridad web
         options.addArguments("--allow-running-insecure-content"); // Permite contenido inseguro
-        */driver.manage().window().maximize();
+        */
+        driver.manage().window().maximize();
 
         // Para manejar la advertencia "Your connection is not private"
         if (driver.getTitle().contains("Privacy error") || driver.getTitle().contains("Your connection is not private")) {
