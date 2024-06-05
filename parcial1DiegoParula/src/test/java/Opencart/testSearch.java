@@ -23,7 +23,7 @@ public class testSearch {
     @BeforeEach
     public void setUp() throws InterruptedException {
         driver = new ChromeDriver();
-        wait = new WebDriverWait(driver, Duration.ofMillis(5000));
+        wait = new WebDriverWait(driver, Duration.ofMillis(10000));
         SearchPage searchPage = new SearchPage(driver, wait);
         searchPage.getUrl("https://opencart.abstracta.us/index.php?route=common/home");
         searchPage.setup();
@@ -42,12 +42,16 @@ public class testSearch {
         addToCartButton.click();
 
         WebElement addSuccesMs = wait.until(ExpectedConditions.presenceOfElementLocated(searchPage.getAddSucces()));
-        addSuccesMs.equals("Success: You have added iPhone to your shopping cart!");
 
-        /*
-        String resultado = searchPage.resultadoBusqueda();
-        assertTrue(resultado.equals("CASA DE PLAYA\nVilla Kantounes Studio Ostria"));
-        */
+        System.out.println(addSuccesMs.getText());
+        String mss = addSuccesMs.getText();
+        //assertTrue(mss.contains("Success: You have added iPhone to your shopping cart!"));
+        assertEquals("Success: You have added iPhone to your shopping cart!\n×", mss);
+
+
+
+
+
 
     }
 

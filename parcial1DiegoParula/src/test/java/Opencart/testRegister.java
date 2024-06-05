@@ -7,6 +7,8 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 public class testRegister {
     private WebDriver driver;
     private WebDriverWait wait;
@@ -32,16 +34,18 @@ public class testRegister {
         RegisterPage registerPage = new RegisterPage(driver, wait);
         registerPage.clickMyAccount();
         registerPage.clickRegister();
-        registerPage.ingresarName("");
-        registerPage.ingresarApellido("");
-        registerPage.ingresarMail("");
-        registerPage.ingresarTelephone("");
-        registerPage.ingresarContrasenia("");
-        registerPage.confirmarConytrasenia("");
+        registerPage.ingresarName("Reeceal");
+        registerPage.ingresarApellido("Kaufman");
+        registerPage.ingresarMail("praesent22.eu.dui@aol.couk");
+        registerPage.ingresarTelephone("(238) 996-2450");
+        registerPage.ingresarContrasenia("1234");
+        registerPage.confirmarConytrasenia("1234");
         registerPage.clickNoNewsletter();
         registerPage.clickAgree();
         registerPage.clickSubmit();
-        registerPage.cuentaCreada().equals("Congratulations! Your new account has been successfully created!");
+        //registerPage.cuentaCreada().equals("Congratulations! Your new account has been successfully created!");
+        String mensajeExito = registerPage.cuentaCreada();
+        assertEquals("Congratulations! Your new account has been successfully created!", mensajeExito);
 
     }
 
@@ -53,17 +57,19 @@ public class testRegister {
 
         registerPage.clickMyAccount();
         registerPage.clickRegister();
-        registerPage.ingresarName("");
-        registerPage.ingresarApellido("");
-        registerPage.ingresarMail("");
-        registerPage.ingresarTelephone("");
-        registerPage.ingresarContrasenia("");
-        registerPage.confirmarConytrasenia("");
+        registerPage.ingresarName("Reece");
+        registerPage.ingresarApellido("Kaufman");
+        registerPage.ingresarMail("praesent.eu.dui@aol.couk");
+        registerPage.ingresarTelephone("(238) 996-2450");
+        registerPage.ingresarContrasenia("1234");
+        registerPage.confirmarConytrasenia("1234");
         registerPage.clickNoNewsletter();
         registerPage.clickAgree();
         registerPage.clickSubmit();
 
-        registerPage.mailRegistrado().equals("Warning: E-Mail Address is already registered!");
+        String mss = registerPage.mailRegistrado();
+        assertEquals("Warning: E-Mail Address is already registered!", mss);
+        //registerPage.mailRegistrado().equals("Warning: E-Mail Address is already registered!");
     }
 
     @Test
@@ -73,17 +79,19 @@ public class testRegister {
         RegisterPage registerPage = new RegisterPage(driver, wait);
         registerPage.clickMyAccount();
         registerPage.clickRegister();
-        registerPage.ingresarName("");
-        registerPage.ingresarApellido("");
-        registerPage.ingresarMail("");
-        registerPage.ingresarTelephone("");
-        registerPage.ingresarContrasenia("");
-        registerPage.confirmarConytrasenia("");
+        registerPage.ingresarName("Seth");
+        registerPage.ingresarApellido("Simmons");
+        registerPage.ingresarMail("tellus.lorem.eu@yahoo.org");
+        registerPage.ingresarTelephone("(643) 561-8278");
+        registerPage.ingresarContrasenia("1234");
+        registerPage.confirmarConytrasenia("12345");
         registerPage.clickNoNewsletter();
         registerPage.clickAgree();
         registerPage.clickSubmit();
 
-        registerPage.contraseiaNoCoinciden().equals("Password confirmation does not match password!");
+        String mss = registerPage.contraseiaNoCoinciden();
+        assertEquals("Password confirmation does not match password!", mss);
+        //registerPage.contraseiaNoCoinciden().equals("Password confirmation does not match password!");
     }
 
     @Test
@@ -93,17 +101,19 @@ public class testRegister {
         RegisterPage registerPage = new RegisterPage(driver, wait);
         registerPage.clickMyAccount();
         registerPage.clickRegister();
-        registerPage.ingresarName("");
+        registerPage.ingresarName("Seth");
         registerPage.ingresarApellido("");
-        registerPage.ingresarMail("");
-        registerPage.ingresarTelephone("");
-        registerPage.ingresarContrasenia("");
-        registerPage.confirmarConytrasenia("");
+        registerPage.ingresarMail("tellus.lorem.eu@yahoo.org");
+        registerPage.ingresarTelephone("(643) 561-8278");
+        registerPage.ingresarContrasenia("1234");
+        registerPage.confirmarConytrasenia("12345");
+        registerPage.clickNoNewsletter();
         registerPage.clickNoNewsletter();
         registerPage.clickAgree();
         registerPage.clickSubmit();
-
-        registerPage.lastNameVacio().equals("Last Name must be between 1 and 32 characters!");
+        String mss = registerPage.lastNameVacio();
+        assertEquals("Last Name must be between 1 and 32 characters!", mss);
+        //registerPage.lastNameVacio().equals("Last Name must be between 1 and 32 characters!");
     }
 
     @Test
@@ -114,16 +124,18 @@ public class testRegister {
         registerPage.clickMyAccount();
         registerPage.clickRegister();
         registerPage.ingresarName("");
-        registerPage.ingresarApellido("");
-        registerPage.ingresarMail("");
-        registerPage.ingresarTelephone("");
-        registerPage.ingresarContrasenia("");
-        registerPage.confirmarConytrasenia("");
+        registerPage.ingresarApellido("Simmons");
+        registerPage.ingresarMail("tellus.lorem.eu@yahoo.org");
+        registerPage.ingresarTelephone("(643) 561-8278");
+        registerPage.ingresarContrasenia("1234");
+        registerPage.confirmarConytrasenia("12345");
+        registerPage.clickNoNewsletter();
         registerPage.clickNoNewsletter();
         registerPage.clickAgree();
         registerPage.clickSubmit();
-
-        registerPage.nameVacio().equals("First Name must be between 1 and 32 characters!");
+        String mss = registerPage.nameVacio();
+        assertEquals("First Name must be between 1 and 32 characters!", mss);
+        //registerPage.nameVacio().equals("First Name must be between 1 and 32 characters!");
     }
 
     @Test
@@ -133,17 +145,19 @@ public class testRegister {
         RegisterPage registerPage = new RegisterPage(driver, wait);
         registerPage.clickMyAccount();
         registerPage.clickRegister();
-        registerPage.ingresarName("");
-        registerPage.ingresarApellido("");
+        registerPage.ingresarName("Seth");
+        registerPage.ingresarApellido("Simmons");
         registerPage.ingresarMail("");
-        registerPage.ingresarTelephone("");
-        registerPage.ingresarContrasenia("");
-        registerPage.confirmarConytrasenia("");
+        registerPage.ingresarTelephone("(643) 561-8278");
+        registerPage.ingresarContrasenia("1234");
+        registerPage.confirmarConytrasenia("12345");
+        registerPage.clickNoNewsletter();
         registerPage.clickNoNewsletter();
         registerPage.clickAgree();
         registerPage.clickSubmit();
-
-        registerPage.mailVacio().equals("E-Mail Address does not appear to be valid!");
+        String mss = registerPage.mailVacio();
+        assertEquals("E-Mail Address does not appear to be valid!", mss);
+        //registerPage.mailVacio().equals("E-Mail Address does not appear to be valid!");
     }
 
     @Test
@@ -153,17 +167,19 @@ public class testRegister {
         RegisterPage registerPage = new RegisterPage(driver, wait);
         registerPage.clickMyAccount();
         registerPage.clickRegister();
-        registerPage.ingresarName("");
-        registerPage.ingresarApellido("");
-        registerPage.ingresarMail("");
+        registerPage.ingresarName("Seth");
+        registerPage.ingresarApellido("Simmons");
+        registerPage.ingresarMail("tellus.lorem.eu@yahoo.org");
         registerPage.ingresarTelephone("");
-        registerPage.ingresarContrasenia("");
-        registerPage.confirmarConytrasenia("");
+        registerPage.ingresarContrasenia("1234");
+        registerPage.confirmarConytrasenia("12345");
+        registerPage.clickNoNewsletter();
         registerPage.clickNoNewsletter();
         registerPage.clickAgree();
         registerPage.clickSubmit();
-
-        registerPage.telephoneVacio().equals("Telephone must be between 3 and 32 characters!");
+        String mss = registerPage.telephoneVacio();
+        assertEquals("Telephone must be between 3 and 32 characters!", mss);
+        //registerPage.telephoneVacio().equals("Telephone must be between 3 and 32 characters!");
     }
 
 
