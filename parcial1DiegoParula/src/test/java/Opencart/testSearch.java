@@ -66,7 +66,7 @@ public class testSearch {
         String mss = searchPage.agregadoCarritoExitoso();
 
         try {
-            assertEquals("asasasasSuccess: You have added iPhone to your shopping cart!\n×", mss);
+            assertEquals("Success: You have added iPhone to your shopping cart!\n×", mss);
             test.log(Status.PASS, "Validación de producto agregado a carrito");
         } catch (AssertionError e) {
             // Registra el motivo del fallo
