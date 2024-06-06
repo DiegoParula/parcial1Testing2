@@ -1,9 +1,14 @@
 package Opencart;
 
+import com.aventstack.extentreports.ExtentReports;
+import com.aventstack.extentreports.ExtentTest;
+import com.aventstack.extentreports.Status;
+import com.aventstack.extentreports.reporter.ExtentSparkReporter;
 import org.junit.jupiter.api.*;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import reportes.ReportFactory;
 
 import java.time.Duration;
 
@@ -13,10 +18,15 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class testRegister {
     private WebDriver driver;
     private WebDriverWait wait;
+    static ExtentSparkReporter info = new ExtentSparkReporter("reportes/Register-Test.html");
+    static ExtentReports extent;
 
     @BeforeAll
     public static void createReport() {
+        extent = ReportFactory.getInstance();
+        extent.attachReporter(info);
         System.out.println("<<< INICIO TEST DE REGISTRO >>>");
+
     }
 
     @BeforeEach
@@ -33,22 +43,34 @@ public class testRegister {
     @Tag("REGISTRO")
     @Tag("EXITOSO")
     public void RegistroExitoso() throws InterruptedException {
-
+        ExtentTest test = extent.createTest("Registro Exitoso");
+        test.log(Status.INFO, "Comienza el Test");
         RegisterPage registerPage = new RegisterPage(driver, wait);
         registerPage.clickMyAccount();
+        test.log(Status.PASS, "Presiono el botón My Account");
         registerPage.clickRegister();
+        test.log(Status.PASS, "Presiono el botón Register");
         registerPage.ingresarName("Reeceal");
         registerPage.ingresarApellido("Kaufman");
-        registerPage.ingresarMail("praesent22.eu.dui@aol.couk");
+        registerPage.ingresarMail("praesent2112.eu.dui@aol.couk");
         registerPage.ingresarTelephone("(238) 996-2450");
         registerPage.ingresarContrasenia("1234");
         registerPage.confirmarConytrasenia("1234");
         registerPage.clickNoNewsletter();
         registerPage.clickAgree();
         registerPage.clickSubmit();
+        test.log(Status.PASS, "Ingreso los datos para el registro y validaciones");
         //registerPage.cuentaCreada().equals("Congratulations! Your new account has been successfully created!");
         String mensajeExito = registerPage.cuentaCreada();
-        assertEquals("Congratulations! Your new account has been successfully created!", mensajeExito);
+        String expectedMessage = "Congratulations! Your new account has been successfully created!";
+        try{       assertEquals(expectedMessage, mensajeExito);
+            test.log(Status.PASS, "Cuenta creada con exito");
+        }catch (AssertionError e){
+            test.log(Status.FAIL, "Error en la validación del registro: esperado: '" + expectedMessage + "' pero fue: '" + mensajeExito + "'");
+            throw e;
+        }finally {
+            test.log(Status.INFO, "Finaliza el test");
+        }
 
     }
 
@@ -57,23 +79,45 @@ public class testRegister {
     @Tag("REGISTRO")
     @Tag("FALLIDO")
     public void RegistroFallidoMailRepetido() throws InterruptedException {
-        RegisterPage registerPage = new RegisterPage(driver, wait);
+        ExtentTest test = extent.createTest("Registro Fallido Mail Repetido");
+        test.log(Status.INFO, "Comienza el Test");
+        String mss = null;
+        String expectedMessage = "Warning: E-Mail Address is already registered!";
+        try {
 
+
+        RegisterPage registerPage = new RegisterPage(driver, wait);
         registerPage.clickMyAccount();
+        test.log(Status.PASS, "Presiono el botón My Account");
         registerPage.clickRegister();
+        test.log(Status.PASS, "Presiono el botón Register");
         registerPage.ingresarName("Reece");
         registerPage.ingresarApellido("Kaufman");
-        registerPage.ingresarMail("praesent.eu.dui@aol.couk");
+        registerPage.ingresarMail("praesent23.eu.dui@aol.couk");
+        test.log(Status.PASS, "Ingresó mail repetido");
         registerPage.ingresarTelephone("(238) 996-2450");
         registerPage.ingresarContrasenia("1234");
         registerPage.confirmarConytrasenia("1234");
+        test.log(Status.PASS, "Ingresó los datos del registro");
         registerPage.clickNoNewsletter();
         registerPage.clickAgree();
         registerPage.clickSubmit();
+        test.log(Status.PASS, "Completó el registro y aceptó los términos");
+        mss = registerPage.mailRegistrado();
 
-        String mss = registerPage.mailRegistrado();
-        assertEquals("Warning: E-Mail Address is already registered!", mss);
+        assertEquals(expectedMessage, mss);
+        test.log(Status.PASS, "Validacion de mail repetido exitosa");
         //registerPage.mailRegistrado().equals("Warning: E-Mail Address is already registered!");
+        }catch (AssertionError e){
+            test.log(Status.FAIL, "Error en la validación del mail repetido: mensajes esperado: '" + expectedMessage + "' pero fue: '" + mss + "'");
+            throw e;
+        }catch (Exception e) {
+            test.log(Status.FAIL, "Ocurrió un error: " + e.getMessage());
+            throw e;
+
+        } finally {
+            test.log(Status.INFO, "Finaliza el Test");
+        }
     }
 
     @Test
@@ -200,6 +244,8 @@ public class testRegister {
 
     @AfterAll
     public static void saveReport() {
+
+        extent.flush();
         System.out.println("<<< FINALIZAN LOS TEST DE REGISTRO >>>");
     }
 }

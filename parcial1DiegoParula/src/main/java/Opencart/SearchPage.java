@@ -19,18 +19,13 @@ public class SearchPage extends BasePage {
         super(driver, null);
     }
 
-    /** Completa la búsqueda con la ciudad especificada.
-     * @param ciudad La ciudad a buscar.
-     * @throws InterruptedException Si ocurre un error durante la espera.
-     */
+
     public void completarBusqueda(String product) throws InterruptedException {
         this.sendText(product, searchBox);
         this.sendKey(Keys.ENTER, searchBox);
     }
 
-    /** Hace click en el botón de búsqueda.
-     * @throws InterruptedException Si ocurre un error durante la espera.
-     */
+
     public void clickBuscar() throws InterruptedException {
         this.click(searchButtom);
     }
@@ -53,14 +48,5 @@ public class SearchPage extends BasePage {
         return addSucces;
     }
 
-    ////////////////////////////////////////////////////////
 
-    /** Obtiene el resultado de la búsqueda.
-     * @return El texto del resultado de la búsqueda.
-     * @throws InterruptedException Si ocurre un error durante la espera.
-     *//*
-    public String resultadoBusqueda() throws InterruptedException {
-        System.out.println("RESULTADO DE LA BUSQUEDA: " + this.getText(validateSearch));
-        return this.getText(validateSearch);
-    }*/
 }

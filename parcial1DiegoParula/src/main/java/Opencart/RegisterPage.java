@@ -32,16 +32,12 @@ public class RegisterPage extends BasePage{
     private By mailRegister = By.className("form-feedback");
     private By passwordDis = By.className("small-feedback");
 
-    /**Constructor de la clase RegisterPage
-     * @param driver la instancia de WebDriver utilizada para interactuar con la página web
-     */
+
     public RegisterPage(WebDriver driver, WebDriverWait wait) {
         super(driver, null);
     }
 
-    /** Hace click en el botón "Crear Cuenta".
-     * @throws InterruptedException si el hilo es interrumpido mientras espera
-     */
+
     public void clickMyAccount() throws InterruptedException {
         this.click(btnMyAccount);
     }
@@ -50,26 +46,17 @@ public class RegisterPage extends BasePage{
         this.click(btnRegister);
     }
 
-    /** Ingresa el nombre proporcionado en el campo de nombre.
-     * @param name el nombre a ingresar en el campo
-     * @throws InterruptedException si el hilo es interrumpido mientras espera
-     */
+
     public void ingresarName(String name) throws InterruptedException {
         this.sendText(name, firstName);
     }
 
-    /** Ingresa el apellido proporcionado en el campo de apellido.
-     * @param name el apellido a ingresar en el campo
-     * @throws InterruptedException si el hilo es interrumpido mientras espera
-     */
+
     public void ingresarApellido(String lastname) throws InterruptedException {
         this.sendText(lastname, lastName);
     }
 
-    /** Ingresa el correo electrónico proporcionado en el campo de correo electrónico.
-     * @param mail el correo electrónico a ingresar en el campo
-     * @throws InterruptedException si el hilo es interrumpido mientras espera
-     */
+
     public void ingresarMail(String mail) throws InterruptedException {
         this.sendText(mail, email);
     }
@@ -78,26 +65,17 @@ public class RegisterPage extends BasePage{
         this.sendText(telephoneNumber, telephone);
     }
 
-    /** Ingresa la contraseña proporcionada en el campo de contraseña.
-     * @param pass la contraseña a ingresar en el campo
-     * @throws InterruptedException si el hilo es interrumpido mientras espera
-     */
+
     public void ingresarContrasenia(String pass) throws InterruptedException {
         this.sendText(pass, password);
     }
 
-    /** Reingresa la contraseña proporcionada en el campo de confirmación de contraseña.
-     * @param pass la contraseña a reingresar en el campo
-     * @throws InterruptedException si el hilo es interrumpido mientras espera
-     */
+
     public void confirmarConytrasenia(String pass) throws InterruptedException {
         this.sendText(pass, confirmPass);
     }
 
-    /** Hace click en el botón "Registrarse".
-     *
-     * @throws InterruptedException si el hilo es interrumpido mientras espera
-     */
+
     public void clickNoNewsletter() throws InterruptedException {
         this.click(btnInputNoNewsletter);
     }
@@ -110,20 +88,14 @@ public class RegisterPage extends BasePage{
         this.click(btnSubmit);
     }
 
-    /** Obtiene el texto del mensaje de "Gracias" indicando la creación de la cuenta.
-     * @return el texto del mensaje de "Gracias"
-     * @throws InterruptedException si el hilo es interrumpido mientras espera
-     */
+
     public String cuentaCreada() throws InterruptedException {
         String res = this.getText(account);
-        System.out.println("Resultado Card value: " + res);
+        System.out.println("Resultado: " + res);
         return res;
     }
 
-    /** Obtiene el texto del mensaje de éxito indicando la creación de la cuenta.
-     * @return el texto del mensaje de éxito
-     * @throws InterruptedException si el hilo es interrumpido mientras espera
-     */
+
     public String cuentaCreadaExito() throws InterruptedException {
         String res = this.getText(exito);
         System.out.println("Resultado Card value: " + res);
@@ -131,23 +103,17 @@ public class RegisterPage extends BasePage{
     }
     //////////////////////////////////////////////////
     ///////////Registro Fallido//////////////////////
-    /** Obtiene el texto del mensaje indicando que el correo ya está registrado.
-     * @return el texto del mensaje de correo registrado
-     * @throws InterruptedException si el hilo es interrumpido mientras espera
-     */
+
     public String mailRegistrado() throws InterruptedException {
         String res = this.getText(errorDiv);
-        System.out.println("Resultado Card value: " + res);
+        System.out.println("Resultado: " + res);
         return res;
     }
 
-    /** Obtiene el texto del mensaje indicando que las contraseñas no coinciden.
-     * @return el texto del mensaje de contraseñas no coincidentes
-     * @throws InterruptedException si el hilo es interrumpido mientras espera
-     */
+
     public String contraseiaNoCoinciden() throws InterruptedException {
         String res = this.getText(errorDivPass);
-        System.out.println("Resultado Card value: " + res);
+        System.out.println("Resultado: " + res);
         return res;
     }
 

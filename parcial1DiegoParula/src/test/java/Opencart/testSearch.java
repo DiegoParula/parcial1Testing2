@@ -20,7 +20,7 @@ import static reportes.ReportFactory.captureScreenshot;
 public class testSearch {
     private WebDriver driver;
     private WebDriverWait wait;
-    static ExtentSparkReporter info = new ExtentSparkReporter("reportes/Login-Test.html");
+    static ExtentSparkReporter info = new ExtentSparkReporter("reportes/Search-Test.html");
     static ExtentReports extent;
 
     @BeforeAll
@@ -52,16 +52,6 @@ public class testSearch {
         test.log(Status.PASS, "Ingreso el producto iphone a buscar");
         searchPage.clickBuscar();
 
-        /*WebElement addToCartButton = wait.until(ExpectedConditions.elementToBeClickable(searchPage.getAddToCart()));
-        addToCartButton.click();
-
-        WebElement addSuccesMs = wait.until(ExpectedConditions.presenceOfElementLocated(searchPage.getAddSucces()));
-
-        System.out.println(addSuccesMs.getText());
-        String mss = addSuccesMs.getText();
-        //assertTrue(mss.contains("Success: You have added iPhone to your shopping cart!"));
-        assertEquals("Success: You have added iPhone to your shopping cart!\n×", mss);
-        */
         searchPage.clickAddToCart();
         String mss = searchPage.agregadoCarritoExitoso();
 
@@ -69,19 +59,13 @@ public class testSearch {
             assertEquals("Success: You have added iPhone to your shopping cart!\n×", mss);
             test.log(Status.PASS, "Validación de producto agregado a carrito");
         } catch (AssertionError e) {
-            // Registra el motivo del fallo
+
             test.log(Status.FAIL, "Fallo en la validación del producto agregado al carrito: " + e.getMessage());
-            captureScreenshot(test, "FAIL_Registro", driver);
+            captureScreenshot(test, "FAIL_Busqueda", driver);
             throw e;
 
         }
         test.log(Status.INFO, "Finaliza el Test");
-        /*
-        assertEquals("Success:ssss You have added iPhone to your shopping cart!\n×", mss);
-        test.log(Status.PASS, "Validación de producto agregado a carrito");
-
-        test.log(Status.INFO, "Finaliza el Test");
-        */
 
     }
 
