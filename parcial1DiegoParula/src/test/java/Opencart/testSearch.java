@@ -49,15 +49,16 @@ public class testSearch {
         SearchPage searchPage = new SearchPage(driver, wait);
 
         searchPage.completarBusqueda("iphone");
-        test.log(Status.PASS, "Ingreso el producto iphone a buscar");
+        test.log(Status.PASS, "Ingresó el texto iphone en el campo buscar");
         searchPage.clickBuscar();
-
+        test.log(Status.PASS, "Presionó en el icono de la lupa para buscar");
         searchPage.clickAddToCart();
+        test.log(Status.PASS, "Presionó Add to cart");
         String mss = searchPage.agregadoCarritoExitoso();
 
         try {
             assertEquals("Success: You have added iPhone to your shopping cart!\n×", mss);
-            test.log(Status.PASS, "Validación de producto agregado a carrito");
+            test.log(Status.PASS, "Validación de producto agregado a carrito exitosa.");
         } catch (AssertionError e) {
 
             test.log(Status.FAIL, "Fallo en la validación del producto agregado al carrito: " + e.getMessage());

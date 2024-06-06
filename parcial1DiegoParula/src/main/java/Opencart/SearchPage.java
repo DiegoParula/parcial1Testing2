@@ -8,13 +8,13 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 public class SearchPage extends BasePage {
     private By searchBox = By.xpath("//*[@id=\"search\"]/input");
     private By searchButtom = By.xpath("//*[@id=\"search\"]/span/button");
-    //private By validateSearch = By.className("categoria");
+
 
     private By addToCart = By.xpath("//*[@id=\"content\"]/div[3]/div/div/div[2]/div[2]/button[1]");
 
     private By addSucces = By.cssSelector(".alert.alert-success.alert-dismissible");
 
-    //private By addSucces = By.className("alert alert-success alert-dismissible");
+
     public SearchPage(WebDriver driver, WebDriverWait wait) {
         super(driver, null);
     }
